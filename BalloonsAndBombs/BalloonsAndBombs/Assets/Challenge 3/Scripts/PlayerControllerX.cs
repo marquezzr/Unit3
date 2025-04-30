@@ -8,6 +8,8 @@ public class PlayerControllerX : MonoBehaviour
 
     public float floatForce;
     private float gravityModifier = 1.5f;
+    private float cooldownTimerDefault = 0.25f;
+    private float cooldownTimer = 0.25f;
     private Rigidbody playerRb;
 
     public ParticleSystem explosionParticle;
@@ -33,11 +35,19 @@ public class PlayerControllerX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool isLowEnough = playerRb.transform.position.y < 12;
+
+        playerRb.maxLinearVelocity = 10f;
+
         // While space is pressed and player is low enough, float up
-        if (Input.GetKey(KeyCode.Space) && !gameOver)
+        if (Input.GetKey(KeyCode.Space) && !gameOver && cooldownTimer >= cooldownTimerDefault && isLowEnough)
         {
-            playerRb.AddForce(Vector3.up * floatForce);
+            playerRb.AddForce(Vector3.up * floatForce, ForceMode.Impulse);
+
+            cooldownTimer = 0f;
         }
+
+        cooldownTimer += Time.deltaTime;
     }
 
     private void OnCollisionEnter(Collision other)
