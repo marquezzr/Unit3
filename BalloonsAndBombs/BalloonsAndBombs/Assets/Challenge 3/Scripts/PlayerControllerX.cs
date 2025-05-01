@@ -8,8 +8,8 @@ public class PlayerControllerX : MonoBehaviour
 
     public float floatForce;
     private float gravityModifier = 1.5f;
-    private float cooldownTimerDefault = 0.25f;
-    private float cooldownTimer = 0.25f;
+    private float cooldownTimerDefault = 0.1f;
+    private float cooldownTimer = 0.1f;
     private Rigidbody playerRb;
 
     public ParticleSystem explosionParticle;
